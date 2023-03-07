@@ -24,3 +24,69 @@
 
 # Использовать данные:
 # любые
+
+abstract class Carrier {
+    abstract public function print_company();
+    abstract public function delivery_price(int $weight);
+}
+
+class CarrierRussianPost extends Carrier {
+    public function print_company() {
+        return 'Почта России';
+    }
+
+    public function delivery_price($weight) {
+        if($weight < 10){
+            return 100;
+        }
+        return 1000;
+    }
+}
+
+class CarrierDHL extends Carrier {
+    public function print_company() {
+        return 'DHL';
+    }
+
+    public function delivery_price($weight) {
+        return $weight * 100;
+    }
+}
+
+// Новый перевозчик
+class CarrierSDEK extends Carrier {
+    public function print_company() {
+        return 'СДЕК';
+    }
+
+    public function delivery_price($weight) {
+        if($weight < 10){
+            return $weight * 9;
+        } elseif ($weight < 100) {
+            return $weight * 90;
+        } else {
+            return $weight * 150;
+        }
+    }
+}
+
+
+// For debugging
+for($i=1; $i<=20; $i++){
+
+$carriers = array(); 
+
+    echo("Step {$i}<hr><br>");
+
+    $carriers[] = new CarrierRussianPost();
+    $carriers[] = new CarrierDHL();
+    $carriers[] = new CarrierSDEK();
+
+    foreach($carriers as $carrier) {
+        $weight = mt_rand(1, 150);
+        $price = $carrier->delivery_price($weight);
+        $company = $carrier->print_company();
+        echo ("Cost calculation for {$company}:<br> weight: {$weight}, price: {$price}<br><br>");
+    }
+
+}
