@@ -1,0 +1,28 @@
+:root {
+  --color1: #88b7e6;
+  --color2: #0d7ae7;
+}
+header,
+footer,
+section {
+  padding: 100px 0;
+}
+header {
+  padding: 50px 0;
+  background: var(--color1);
+  background: -moz-linear-gradient(left, var(--color1) 0%, var(--color2) 100%);
+  background: -webkit-linear-gradient(
+    left,
+    var(--color1) 0%,
+    var(--color2) 100%
+  );
+  background: linear-gradient(to right, var(--color1) 0%, var(--color2) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=var(--color1), endColorstr=var(--color2),GradientType=1 );
+}
+.xxx,
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+}
