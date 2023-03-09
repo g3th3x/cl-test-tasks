@@ -79,21 +79,47 @@ $workers = array (
 		),
 );
 
-init('Древлянка');
+$areasDebug = array (
+		1 => '5-й поселок',
+		2 => 'Голиковка',
+		3 => 'Древлянка',
+		4 => 'Заводская',
+		5 => 'Зарека',
+		6 => 'Ключевая',
+		7 => 'Кукковка',
+		8 => 'Новый сайнаволок',
+		9 => 'Октябрьский',
+		10 => 'Первомайский',
+		11 => 'Перевалка',
+		12 => 'Сулажгора',
+		13 => 'Университетский городок',
+		14 => 'Центр',
+        15 => 'ДреУлянка',
+);
+
+foreach($areasDebug as $area){
+    $result = init($area);
+    echo "{$area} {$result}<br>";
+}
 
 function init($start_area) {
     global $areas;
     global $nearby;
     global $workers;
 
-    $start_area_index = 0;
-    foreach($areas as $key=>$value) {
-        if ($value === $start_area) {
-            $start_area_index = $key;
-        }
-    }
+    if(array_search($start_area, $areas)) {
+        $start_area_index = 0;
 
-echo modified_bfs($nearby, $start_area_index, $workers, $areas);
+        foreach($areas as $key=>$value) {
+            if ($value === $start_area) {
+                $start_area_index = $key;
+            }
+        }
+    
+    return modified_bfs($nearby, $start_area_index, $workers, $areas);
+    }
+    return "not found!<br>";
+
 }
 
 function modified_bfs($graph, $start, $workers, $areas) {
@@ -119,5 +145,5 @@ function modified_bfs($graph, $start, $workers, $areas) {
         };
     }
  
-    return NULL;
+    return null;
 }
