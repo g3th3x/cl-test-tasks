@@ -78,3 +78,40 @@ $workers = array (
 				'area_name' => 'Центр', //14
 		),
 );
+
+
+$start_area = 'Древлянка';
+$start_area_index = 0;
+foreach($areas as $key=>$value) {
+    if ($value === $start_area) {
+        $start_area_index = $key;
+    }
+}
+
+echo modified_bfs($nearby, $start_area_index, $workers, $areas);
+
+function modified_bfs($graph, $start, $workers, $areas) {
+    $queue = new SplQueue();
+    $queue->enqueue($start);
+    $visited = [$start];
+ 
+    while ($queue->count() > 0) {
+        $node = $queue->dequeue();
+   
+        foreach($workers as $key=>$worker) {
+            if ($areas[$node] === $worker['area_name']) {
+                return $worker['login'];
+            }
+        }
+
+        foreach ($graph[$node] as $neighbour) {
+            if (!in_array($neighbour, $visited)) {
+                $visited[] = $neighbour;
+ 
+                $queue->enqueue($neighbour);
+            }
+        };
+    }
+ 
+    return NULL;
+}
