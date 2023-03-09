@@ -79,16 +79,22 @@ $workers = array (
 		),
 );
 
+init('Древлянка');
 
-$start_area = 'Древлянка';
-$start_area_index = 0;
-foreach($areas as $key=>$value) {
-    if ($value === $start_area) {
-        $start_area_index = $key;
+function init($start_area) {
+    global $areas;
+    global $nearby;
+    global $workers;
+
+    $start_area_index = 0;
+    foreach($areas as $key=>$value) {
+        if ($value === $start_area) {
+            $start_area_index = $key;
+        }
     }
-}
 
 echo modified_bfs($nearby, $start_area_index, $workers, $areas);
+}
 
 function modified_bfs($graph, $start, $workers, $areas) {
     $queue = new SplQueue();
